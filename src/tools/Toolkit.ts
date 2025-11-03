@@ -16,9 +16,6 @@ export function getRandom(low:number=1, high:number=10) {
 // keyToDetect : string - the key to detect
 export function addKey(functionToCall:Function, keyToDetect:string = "Enter") {
     document.addEventListener("keydown", (e:KeyboardEvent) => {
-
-        console.log("Key down: " + e.code);
-
         // is the key released the specified key?
         if (e.code === keyToDetect) {
             // pressing the enter key will force some browsers to refresh
@@ -42,7 +39,7 @@ export function cacheImages(imageFilenames:string[], path:string, callback:Funct
     // initialization
     loadedCount = 0;
     images = [];
-    
+
     // loop through array of image filenames
     for (let filename of imageFilenames) {
         // construct Image object and listen for when loaded
@@ -56,6 +53,24 @@ export function cacheImages(imageFilenames:string[], path:string, callback:Funct
         image.src = path + filename;
         // save image in array so browser "caches" the image
         images.push(image);
+    }
+}
+
+// pauses execution for a set amount of time (in milliseconds) for testing loading overlays, etc.
+// arguments :
+// seconds : number - the number of seconds to pause execution for
+export async function pauser(seconds:number) {
+    await new Promise(resolve => setTimeout(resolve, 1000 * seconds));
+}
+
+// dumps JSON data to the console for testing purposes
+// arguments :
+// data : any - the JSON data to dump
+export function jsondump(data:any, inConsole:boolean = false) {
+    if (inConsole) {
+        console.log(JSON.stringify(data, null, "\t")); 
+    } else {
+        return JSON.stringify(data, null, "\t");
     }
 }
 
@@ -80,18 +95,17 @@ export async function getJSONData(retrieveScript:string, cacheExpiry:number|fals
 // arguments :
 // sendURL : string - the URL to send the JSON data to
 // sendJSON : object - the JSON data to send
-// requestType : string - the type of request to send (GET, POST, PUT, DELETE)  
 // debug : boolean - whether to throw an error if one occurs (default is set to true)
-export async function sendJSONData(sendURL: string, sendJSON: any, requestType:string, debug: boolean = true) {
+export async function sendJSONData(sendURL: string, sendJSON: any, debug: boolean = true) {
     try {
         const response = await fetch(sendURL, {
-            method: requestType,
+            method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(sendJSON),
             cache: 'no-store'
         });
-        const result:any = await response.json();
-        return { data:result, status:response.status };
+        const data:any = await response.json();
+        return data;
     } catch (error:any) {
         console.log(`>>> FETCH ERROR: ${error.message}`);
         if (debug) throw error;

@@ -1,7 +1,8 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sample } from "@/tools/samples.model";
-import Logout from '@/components/Logout';
 
 export function SamplesList({ samples }:{ samples:Sample[]}) {
     return (
@@ -16,14 +17,12 @@ export function SamplesList({ samples }:{ samples:Sample[]}) {
                     </button>
                 </Link>
 
-                <Logout />
-
             </div>
             <div className="mb-3">Portfolio Samples:</div>
             <div className="flex flex-col flex-wrap">
                 {samples.map((data:Sample,n:number) => {
                     return (
-                        <div key={n} className="bg-[#02405C] max-w-[700px] rounded-md p-4 mb-3">
+                        <div key={n} className="bg-[#02405C] max-w-175 rounded-md p-4 mb-3">
                             <div className="text-xl text-accent pb-2">Sample {n+1}</div>
                             <div className="flex flex-nowrap">
                                 <div className="mr-3">
@@ -31,7 +30,7 @@ export function SamplesList({ samples }:{ samples:Sample[]}) {
                                 </div>
                                 <div>
                                     <div className="font-title font-bold pb-1">{data.name}</div>
-                                    <div className="pb-1 max-w-[600px]">{data.description}</div>
+                                    <div className="pb-1 max-w-150">{data.description}</div>
                                     <a href="{data.url}" className="hover:underline text-xs" target="_blank">{data.url}</a>
                                 </div>
                             </div>

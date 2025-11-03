@@ -13,7 +13,7 @@ services:
       - "27017:27017"
     networks:
       - linkednetwork
-
+            
   app:
     build:
       context: ./
@@ -28,10 +28,10 @@ services:
       - node_modules_app:/usr/app/node_modules
     ports:
       - "3000:3000"
+    depends_on:
+      - mongo
     environment:
       - NODE_ENV=production      
-    depends_on:
-      - mongo        
     networks:
       - linkednetwork  
 
