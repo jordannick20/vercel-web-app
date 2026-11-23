@@ -9,7 +9,6 @@ import sanitizeHtml from "sanitize-html";
 
 const URL: string = process.env.MONGO_URL || "mongodb://mongo:27017";
 
-const client = new MongoClient(URL);
 
 const DB_NAME: string = "dbPortfolio";
 const COLLECTION_NAME: string = "samplesCollection";
