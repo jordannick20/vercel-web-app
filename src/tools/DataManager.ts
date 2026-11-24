@@ -9,9 +9,8 @@ import sanitizeHtml from "sanitize-html";
 
 const URL: string = process.env.MONGO_URL || "mongodb://mongo:27017";
 
-
-const DB_NAME: string = "dbPortfolio";
-const COLLECTION_NAME: string = "samplesCollection";
+const DB_NAME: string = "jordandb";
+const COLLECTION_NAME: string = "jordancollection";
 
 export async function getSamples() {
   let mongoClient: MongoClient = new MongoClient(URL);
